@@ -1,8 +1,7 @@
 require('../');
 
 exports['test general formatting'] = function(assert) {
-  // Apr 02 2010 08:47:07
-  var d = new Date(1270198027049);
+  var d = new Date('Apr 02 2010 08:47:07.049 GMT+0000');
 
   assert.equal(d.format('y-m-d H:i:s', 0), '10-04-02 08:47:07');
   assert.equal(d.format('D, jS F Y \\a\\t g a', 0), 'Fri, 2nd April 2010 at 8 am');
@@ -25,84 +24,61 @@ exports['test padding'] = function(assert) {
 };
 
 exports['test am/pm'] = function(assert) {
-  // May 15 2010 00:00:00 GMT+0000
-  var d = new Date(1273881600000);
-  assert.equal(d.format('a A g G h H', 0), 'am AM 12 0 12 00');
-
-  // May 15 2010 14:00:00 GMT+0000
-  var d = new Date(1273932000000);
-  assert.equal(d.format('a A g G h H', 0), 'pm PM 2 14 02 14');
+  assert.equal(new Date('May 15 2010 00:00:00 GMT+0000').format('a A g G h H', 0), 'am AM 12 0 12 00');
+  assert.equal(new Date('May 15 2010 14:00:00 GMT+0000').format('a A g G h H', 0), 'pm PM 2 14 02 14');
 };
 
 exports['test leap years'] = function(assert) {
-  // Feb 01 1900 00:00:00 GMT+0000
-  var d = new Date(-2206310400000);
-  assert.equal(d.format('L t', 0), '0 28');
-
-  // Feb 01 1904 00:00:00 GMT+0000
-  var d = new Date(-2080166400000);
-  assert.equal(d.format('L t', 0), '1 29');
-
-  // Feb 01 2000 00:00:00 GMT+0000
-  var d = new Date(949363200000);
-  assert.equal(d.format('L t', 0), '1 29');
+  assert.equal(new Date('Feb 01 1900 00:00:00 GMT+0000').format('L t', 0), '0 28');
+  assert.equal(new Date('Feb 01 1904 00:00:00 GMT+0000').format('L t', 0), '1 29');
+  assert.equal(new Date('Feb 01 2000 00:00:00 GMT+0000').format('L t', 0), '1 29');
+  assert.equal(new Date('Feb 01 2001 00:00:00 GMT+0000').format('L t', 0), '0 28');
 };
 
 exports['test english ordinals'] = function(assert) {
-  // May 1 2010 14:00:00 GMT+0000
-  assert.equal(new Date(1272722400000).format('jS', 0), '1st');
-
-  // May 2 2010 14:00:00 GMT+0000
-  assert.equal(new Date(1272808800000).format('jS', 0), '2nd');
-
-  // May 3 2010 14:00:00 GMT+0000
-  assert.equal(new Date(1272895200000).format('jS', 0), '3rd');
-
-  // May 4 2010 14:00:00 GMT+0000
-  assert.equal(new Date(1272981600000).format('jS', 0), '4th');
-
-  // May 11 2010 14:00:00 GMT+0000
-  assert.equal(new Date(1273586400000).format('jS', 0), '11th');
-
-  // May 21 2010 14:00:00 GMT+0000
-  assert.equal(new Date(1274450400000).format('jS', 0), '21st');
+  assert.equal(new Date('May 1 2010 00:00:00 GMT+0000').format('jS', 0), '1st');
+  assert.equal(new Date('May 2 2010 00:00:00 GMT+0000').format('jS', 0), '2nd');
+  assert.equal(new Date('May 3 2010 00:00:00 GMT+0000').format('jS', 0), '3rd');
+  assert.equal(new Date('May 4 2010 00:00:00 GMT+0000').format('jS', 0), '4th');
+  assert.equal(new Date('May 11 2010 00:00:00 GMT+0000').format('jS', 0), '11th');
+  assert.equal(new Date('May 21 2010 00:00:00 GMT+0000').format('jS', 0), '21st');
 };
 
 exports['test timezone tokens'] = function(assert) {
   var d = new Date('Jul 18 2010 12:00:00 GMT+0000');
 
-  assert.equal(d.format('Y-m-d H:i:s O P', 285), '2010-07-18 07:15:00 -0445 -04:45');
-  assert.equal(d.format('Y-m-d H:i:s O P', '-0445'), '2010-07-18 07:15:00 -0445 -04:45');
+  assert.equal(d.format('Y-m-d H:i:s O P Z', 285), '2010-07-18 07:15:00 -0445 -04:45 -17100');
+  assert.equal(d.format('Y-m-d H:i:s O P Z', '-0445'), '2010-07-18 07:15:00 -0445 -04:45 -17100');
+                                         
+  assert.equal(d.format('Y-m-d H:i:s O P Z', 270), '2010-07-18 07:30:00 -0430 -04:30 -16200');
+  assert.equal(d.format('Y-m-d H:i:s O P Z', '-0430'), '2010-07-18 07:30:00 -0430 -04:30 -16200');
+  assert.equal(d.format('Y-m-d H:i:s O P Z', 'VET'), '2010-07-18 07:30:00 -0430 -04:30 -16200');
+                                         
+  assert.equal(d.format('Y-m-d H:i:s O P Z', 60), '2010-07-18 11:00:00 -0100 -01:00 -3600');
+  assert.equal(d.format('Y-m-d H:i:s O P Z', '-0100'), '2010-07-18 11:00:00 -0100 -01:00 -3600');
+  assert.equal(d.format('Y-m-d H:i:s O P Z', 'CVT'), '2010-07-18 11:00:00 -0100 -01:00 -3600');
+                                         
+  assert.equal(d.format('Y-m-d H:i:s O P Z', -60), '2010-07-18 13:00:00 +0100 +01:00 3600');
+  assert.equal(d.format('Y-m-d H:i:s O P Z', '+0100'), '2010-07-18 13:00:00 +0100 +01:00 3600');
+  assert.equal(d.format('Y-m-d H:i:s O P Z', 'CET'), '2010-07-18 13:00:00 +0100 +01:00 3600');
 
-  assert.equal(d.format('Y-m-d H:i:s O P', 270), '2010-07-18 07:30:00 -0430 -04:30');
-  assert.equal(d.format('Y-m-d H:i:s O P', '-0430'), '2010-07-18 07:30:00 -0430 -04:30');
-  assert.equal(d.format('Y-m-d H:i:s O P', 'VET'), '2010-07-18 07:30:00 -0430 -04:30');
-
-  assert.equal(d.format('Y-m-d H:i:s O P', 60), '2010-07-18 11:00:00 -0100 -01:00');
-  assert.equal(d.format('Y-m-d H:i:s O P', '-0100'), '2010-07-18 11:00:00 -0100 -01:00');
-  assert.equal(d.format('Y-m-d H:i:s O P', 'CVT'), '2010-07-18 11:00:00 -0100 -01:00');
-
-  assert.equal(d.format('Y-m-d H:i:s O P', -60), '2010-07-18 13:00:00 +0100 +01:00');
-  assert.equal(d.format('Y-m-d H:i:s O P', '+0100'), '2010-07-18 13:00:00 +0100 +01:00');
-  assert.equal(d.format('Y-m-d H:i:s O P', 'CET'), '2010-07-18 13:00:00 +0100 +01:00');
-
-  assert.equal(d.format('Y-m-d H:i:s O P', -345), '2010-07-18 17:45:00 +0545 +05:45');
-  assert.equal(d.format('Y-m-d H:i:s O P', '+0545'), '2010-07-18 17:45:00 +0545 +05:45');
-  assert.equal(d.format('Y-m-d H:i:s O P', 'NPT'), '2010-07-18 17:45:00 +0545 +05:45');
+  assert.equal(d.format('Y-m-d H:i:s O P Z', -345), '2010-07-18 17:45:00 +0545 +05:45 20700');
+  assert.equal(d.format('Y-m-d H:i:s O P Z', '+0545'), '2010-07-18 17:45:00 +0545 +05:45 20700');
+  assert.equal(d.format('Y-m-d H:i:s O P Z', 'NPT'), '2010-07-18 17:45:00 +0545 +05:45 20700');
 };
 
 exports['test timezones across day boundaries'] = function(assert) {
-  // Jan 1 2010 00:00:00 GMT+0000
-  var d = new Date(1262304000000);
-  assert.equal(d.format('Y-m-d H:i:s O', '+1200'), '2010-01-01 12:00:00 +1200');
-  // assert.equal(d.format('Y-m-d H:i:s O T', 'CEST'), '2010-01-01 02:00:00 +0200 CEST');
+  var d = new Date('Jan 1 2010 00:00:00 GMT+0000');
+
+  assert.equal(d.format('Y-m-d H:i:s O T', '+1200'), '2010-01-01 12:00:00 +1200 FJT');
+  assert.equal(d.format('Y-m-d H:i:s O T', 'CEST'), '2010-01-01 02:00:00 +0200 CEST');
   assert.equal(d.format('Y-m-d H:i:s O T', 'EST'), '2009-12-31 19:00:00 -0500 EST');
   assert.equal(d.format('Y-m-d H:i:s O T', 'EDT'), '2009-12-31 20:00:00 -0400 EDT');
   assert.equal(d.format('Y-m-d H:i:s O T', 'PST'), '2009-12-31 16:00:00 -0800 PST');
   assert.equal(d.format('Y-m-d H:i:s O T', 'PDT'), '2009-12-31 17:00:00 -0700 PDT');
-  assert.equal(d.format('Y-m-d H:i:s O', '-0730'), '2009-12-31 16:30:00 -0730');
-  assert.equal(d.format('Y-m-d H:i:s O', '-0745'), '2009-12-31 16:15:00 -0745');
-  assert.equal(d.format('Y-m-d H:i:s O', 'NPT'), '2010-01-01 05:45:00 +0545');
+  assert.equal(d.format('Y-m-d H:i:s O T', '-0730'), '2009-12-31 16:30:00 -0730 ');
+  assert.equal(d.format('Y-m-d H:i:s O T', '-0745'), '2009-12-31 16:15:00 -0745 ');
+  assert.equal(d.format('Y-m-d H:i:s O T', 'NPT'), '2010-01-01 05:45:00 +0545 NPT');
 
   d.setTimezone('EEST');
   assert.equal(d.format('Y-m-d H:i:s O T'), '2010-01-01 03:00:00 +0300 EEST');
