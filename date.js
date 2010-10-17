@@ -92,8 +92,8 @@ Date.prototype.format = function(format, tz) {
       case 'u': result.push(pad3(this.getUTCMilliseconds())); break;
 
       // Timezone
-      case 'O': result.push(pad4sign(-(Math.floor(tz / 60) * 100 + tz % 60))); break;
-      case 'P': result.push(pad2sign(-Math.floor(tz / 60)) + ':' + pad2(tz % 60)); break;
+      case 'O': result.push(pad4sign((tz < 0 ? 1 : -1) * (Math.floor(Math.abs(tz) / 60) * 100 + Math.abs(tz) % 60))); break;
+      case 'P': result.push(pad2sign((tz < 0 ? 1 : -1) * (Math.floor(Math.abs(tz) / 60))) + ':' + pad2(Math.abs(tz) % 60)); break;
       case 'T': result.push(tzName); break;
       case 'Z': result.push(-tz * 60); break;
 
@@ -115,15 +115,15 @@ Date.prototype.format = function(format, tz) {
 
 function parseTimezone(tz) {
   if (typeof tz === 'number') {
-    return [tz, data.offsetToTz[-tz][0]];
+    return [tz, tz in data.offsetToTz ? data.offsetToTz[tz][0] : ''];
   }
   var number = parseInt(tz, 10);
   if (isNaN(number)) {
-    return [-data.tzToOffset[tz], tz];
+    return [data.tzToOffset[tz], tz];
   }
   else {
-    tz = -(Math.ceil(number / 100) * 60 + number % 100);
-    return [tz, -tz in data.offsetToTz ? data.offsetToTz[-tz][0] : ''];
+    tz = (number < 0 ? 1 : -1) * (Math.floor(Math.abs(number) / 100) * 60 + Math.abs(number) % 100);
+    return [tz, tz in data.offsetToTz ? data.offsetToTz[tz][0] : ''];
   }
 }
 
