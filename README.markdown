@@ -1,4 +1,8 @@
-An attempt to implement commonly used functionality for use in Node.js. Tests can be run with [Expresso](http://github.com/visionmedia/expresso).
+This project aims to become a repository for commonly used application-level functionality that is not provided by Node.js or JavaScript itself. Where possible and sensible, **libjs** extends built-in object's prototypes.
+
+Contributions are welcome!
+
+Tests can be run with [Expresso](http://github.com/visionmedia/expresso).
 
 ## Date
 

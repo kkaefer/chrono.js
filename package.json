@@ -4,10 +4,10 @@
 , "version" : "0.0.1"
 , "repository" :
   { "type" : "git"
-  , "url" : "https://kkaefer@github.com/kkaefer/lib.git"
+  , "url" : "https://kkaefer@github.com/kkaefer/lib.js.git"
   }
 , "bugs" :
-  { "web" : "http://github.com/kkaefer/lib/issues"
+  { "web" : "http://github.com/kkaefer/lib.js/issues"
   }
-, "main" : "./"
+, "main" : "./lib"
 }
