@@ -1,0 +1,13 @@
+{ "name" : "lib"
+, "author" : "Konstantin Käfer"
+, "description" : "Library of commonly used functionality for Node.js"
+, "version" : "0.0.1"
+, "repository" :
+  { "type" : "git"
+  , "url" : "https://kkaefer@github.com/kkaefer/lib.git"
+  }
+, "bugs" :
+  { "web" : "http://github.com/kkaefer/lib/issues"
+  }
+, "main" : "./"
+}
