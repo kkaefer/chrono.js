@@ -14,7 +14,7 @@ The optional `timezone` parameter specifies the time zone to be used. The values
 
 The function returns a string with the tokens replaced with the Date object's information.
 
-Example: `new Date().format('d.m.Y H:i:s', 'CET');` outputs `19.10.2010 15:48:20` (in CET, without regard to DST).
+Example: `new Date().format('d.m.Y H:i:s', 'CET');` returns `19.10.2010 15:48:20` (in CET, without regard to DST).
 
 ### Date.prototype.**ago()**
 
