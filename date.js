@@ -189,7 +189,7 @@ Date.prototype.ago = function(omit) {
   omit = omit || [];
   var now = new Date();
 
-  if (now.getTime() < this.getTime()) {
+  if (now.getTime() <= this.getTime()) {
     return [ exports.timeInterval.seconds(0) ];
   }
   

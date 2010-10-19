@@ -49,15 +49,15 @@ exports['test timezone tokens'] = function(assert) {
 
   assert.equal(d.format('Y-m-d H:i:s O P Z', 285), '2010-07-18 07:15:00 -0445 -04:45 -17100');
   assert.equal(d.format('Y-m-d H:i:s O P Z', '-0445'), '2010-07-18 07:15:00 -0445 -04:45 -17100');
-                                         
+
   assert.equal(d.format('Y-m-d H:i:s O P Z', 270), '2010-07-18 07:30:00 -0430 -04:30 -16200');
   assert.equal(d.format('Y-m-d H:i:s O P Z', '-0430'), '2010-07-18 07:30:00 -0430 -04:30 -16200');
   assert.equal(d.format('Y-m-d H:i:s O P Z', 'VET'), '2010-07-18 07:30:00 -0430 -04:30 -16200');
-                                         
+
   assert.equal(d.format('Y-m-d H:i:s O P Z', 60), '2010-07-18 11:00:00 -0100 -01:00 -3600');
   assert.equal(d.format('Y-m-d H:i:s O P Z', '-0100'), '2010-07-18 11:00:00 -0100 -01:00 -3600');
   assert.equal(d.format('Y-m-d H:i:s O P Z', 'CVT'), '2010-07-18 11:00:00 -0100 -01:00 -3600');
-                                         
+
   assert.equal(d.format('Y-m-d H:i:s O P Z', -60), '2010-07-18 13:00:00 +0100 +01:00 3600');
   assert.equal(d.format('Y-m-d H:i:s O P Z', '+0100'), '2010-07-18 13:00:00 +0100 +01:00 3600');
   assert.equal(d.format('Y-m-d H:i:s O P Z', 'CET'), '2010-07-18 13:00:00 +0100 +01:00 3600');
@@ -112,4 +112,31 @@ exports['test ISO week numbers'] = function(assert) {
   assert.equal(new Date('Jan 03 2010 12:00:00 GMT+0000').format('o-\\WW-N', 0), '2009-W53-7');
   assert.equal(new Date('Jan 04 2010 12:00:00 GMT+0000').format('o-\\WW-N', 0), '2010-W01-1');
   assert.equal(new Date('Jan 05 2010 12:00:00 GMT+0000').format('o-\\WW-N', 0), '2010-W01-2');
+};
+
+exports['test time ago function'] = function(assert) {
+  var date = new Date();
+  assert.equal(date.ago().join('#'), '0 seconds');
+
+  date.setUTCSeconds(date.getUTCSeconds() - 164);
+  assert.equal(date.ago().join('#'), '2 minutes#44 seconds');
+  assert.equal(date.ago(['seconds']).join('#'), '2 minutes');
+  assert.equal(date.ago(['minutes']).join('#'), '164 seconds');
+
+  date.setUTCHours(date.getUTCHours() - 1);
+  assert.equal(date.ago().join('#'), '1 hour#2 minutes#44 seconds');
+  assert.equal(date.ago(['seconds']).join('#'), '1 hour#2 minutes');
+  assert.equal(date.ago(['minutes']).join('#'), '1 hour#164 seconds');
+  assert.equal(date.ago(['hours']).join('#'), '62 minutes#44 seconds');
+  assert.equal(date.ago(['hours', 'minutes']).join('#'), '3764 seconds');
+  assert.equal(date.ago(['hours', 'minutes', 'seconds']).join('#'), '');
+
+  date.setUTCMonth(date.getUTCMonth() - 2);
+  assert.equal(date.ago().join('#'), '2 months#1 hour#2 minutes#44 seconds');
+  assert.equal(date.ago(['months']).join('#'), '8 weeks#5 days#1 hour#2 minutes#44 seconds');
+
+  date.setUTCFullYear(date.getUTCFullYear() - 3);
+  assert.equal(date.ago().join('#'), '3 years#2 months#1 hour#2 minutes#44 seconds');
+  assert.equal(date.ago(['years']).join('#'), '38 months#1 hour#2 minutes#44 seconds');
+  assert.equal(date.ago(['years', 'months']).join('#'), '165 weeks#2 days#1 hour#2 minutes#44 seconds');
 };
