@@ -1,1 +1,1 @@
-index.js
+require('./lib/date')

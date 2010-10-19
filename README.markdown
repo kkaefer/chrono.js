@@ -2,7 +2,7 @@ This project aims to become a repository for commonly used application-level fun
 
 Contributions are welcome!
 
-Tests can be run with [Expresso](http://github.com/visionmedia/expresso).
+Tests can be run with `make test` after installing [Expresso](http://github.com/visionmedia/expresso). `make test-cov` reports test coverage.
 
 ## Date
 

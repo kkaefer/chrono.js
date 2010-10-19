@@ -1,4 +1,4 @@
-require('../');
+require('date');
 
 exports['test general formatting'] = function(assert) {
   var d = new Date('Apr 02 2010 08:47:07.049 GMT+0000');
