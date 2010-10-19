@@ -51,66 +51,66 @@ Date.prototype.format = function(format, tz) {
   // Use correct timezone.
   this.setTime(time - tz * 60000);
 
-  var result = [];
+  var result = '';
   for (var i = 0; i < format.length; i++) {
     switch (format[i]) {
       // Day
-      case 'd': result.push(pad2(this.getUTCDate())); break;
-      case 'D': result.push(exports.weekdaysShort[this.getUTCDay()]); break;
-      case 'j': result.push(this.getUTCDate()); break;
-      case 'l': result.push(exports.weekdays[this.getUTCDay()]); break;
-      case 'N': result.push(this.getUTCDay() || 7); break;
-      case 'S': result.push(exports.ordinals(this.getUTCDate())); break;
-      case 'w': result.push(this.getUTCDay()); break;
-      case 'z': result.push(this.getUTCDayOfYear()); break;
+      case 'd': result += pad2(this.getUTCDate()); break;
+      case 'D': result += exports.weekdaysShort[this.getUTCDay()]; break;
+      case 'j': result += this.getUTCDate(); break;
+      case 'l': result += exports.weekdays[this.getUTCDay()]; break;
+      case 'N': result += this.getUTCDay() || 7; break;
+      case 'S': result += exports.ordinals(this.getUTCDate()); break;
+      case 'w': result += this.getUTCDay(); break;
+      case 'z': result += this.getUTCDayOfYear(); break;
 
       // Week
-      case 'W': result.push(pad2(this.getUTCISOWeek())); break;
+      case 'W': result += pad2(this.getUTCISOWeek()); break;
 
       // Month
-      case 'F': result.push(exports.months[this.getUTCMonth()]); break;
-      case 'm': result.push(pad2(this.getUTCMonth() + 1)); break;
-      case 'M': result.push(exports.monthsShort[this.getUTCMonth()]); break;
-      case 'n': result.push(this.getUTCMonth() + 1); break;
-      case 't': result.push(this.getUTCDaysOfMonth()); break;
+      case 'F': result += exports.months[this.getUTCMonth()]; break;
+      case 'm': result += pad2(this.getUTCMonth() + 1); break;
+      case 'M': result += exports.monthsShort[this.getUTCMonth()]; break;
+      case 'n': result += this.getUTCMonth() + 1; break;
+      case 't': result += this.getUTCDaysOfMonth(); break;
 
       // Year
-      case 'L': result.push(this.isLeapYear() ? 1 : 0); break;
-      case 'o': result.push(this.getUTCISOFullYear()); break;
-      case 'Y': result.push(this.getUTCFullYear()); break;
-      case 'y': result.push(pad2(this.getUTCFullYear() % 100)); break;
+      case 'L': result += this.isLeapYear() ? 1 : 0; break;
+      case 'o': result += this.getUTCISOFullYear(); break;
+      case 'Y': result += this.getUTCFullYear(); break;
+      case 'y': result += pad2(this.getUTCFullYear() % 100); break;
 
       // Time
-      case 'a': result.push(this.getUTCHours() >= 12 ? 'pm' : 'am'); break;
-      case 'A': result.push(this.getUTCHours() >= 12 ? 'PM' : 'AM'); break;
-      case 'g': result.push(this.getUTCHours() % 12 || 12); break;
-      case 'G': result.push(this.getUTCHours()); break;
-      case 'h': result.push(pad2(this.getUTCHours() % 12 || 12)); break;
-      case 'H': result.push(pad2(this.getUTCHours())); break;
-      case 'i': result.push(pad2(this.getUTCMinutes())); break;
-      case 's': result.push(pad2(this.getUTCSeconds())); break;
-      case 'u': result.push(pad3(this.getUTCMilliseconds())); break;
+      case 'a': result += this.getUTCHours() >= 12 ? 'pm' : 'am'; break;
+      case 'A': result += this.getUTCHours() >= 12 ? 'PM' : 'AM'; break;
+      case 'g': result += this.getUTCHours() % 12 || 12; break;
+      case 'G': result += this.getUTCHours(); break;
+      case 'h': result += pad2(this.getUTCHours() % 12 || 12); break;
+      case 'H': result += pad2(this.getUTCHours()); break;
+      case 'i': result += pad2(this.getUTCMinutes()); break;
+      case 's': result += pad2(this.getUTCSeconds()); break;
+      case 'u': result += pad3(this.getUTCMilliseconds()); break;
 
       // Timezone
-      case 'O': result.push(pad4sign((tz < 0 ? 1 : -1) * (Math.floor(Math.abs(tz) / 60) * 100 + Math.abs(tz) % 60))); break;
-      case 'P': result.push(pad2sign((tz < 0 ? 1 : -1) * (Math.floor(Math.abs(tz) / 60))) + ':' + pad2(Math.abs(tz) % 60)); break;
-      case 'T': result.push(tzName); break;
-      case 'Z': result.push(-tz * 60); break;
+      case 'O': result += pad4sign((tz < 0 ? 1 : -1) * (Math.floor(Math.abs(tz) / 60) * 100 + Math.abs(tz) % 60)); break;
+      case 'P': result += pad2sign((tz < 0 ? 1 : -1) * (Math.floor(Math.abs(tz) / 60))) + ':' + pad2(Math.abs(tz) % 60); break;
+      case 'T': result += tzName; break;
+      case 'Z': result += -tz * 60; break;
 
       // Full Date/Time
-      case 'c': result.push(this.format('Y-m-d\\TH:i:sP', tz)); break;
-      case 'r': result.push(this.format('D, d M y H:i:s O', tz)); break;
-      case 'U': result.push(Math.floor(this.getTime() / 1000)); break;
+      case 'c': result += this.format('Y-m-d\\TH:i:sP', tz); break;
+      case 'r': result += this.format('D, d M y H:i:s O', tz); break;
+      case 'U': result += Math.floor(this.getTime() / 1000); break;
 
-      case '\\': if (format[++i] !== undefined) result.push(format[i]); break;
+      case '\\': if (format[++i] !== undefined) result += format[i]; break;
 
-      default: result.push(format[i]); break;
+      default: result += format[i]; break;
     }
   }
 
   this.setTime(time);
 
-  return result.join('');
+  return result;
 };
 
 function parseTimezone(tz) {
