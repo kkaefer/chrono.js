@@ -117,11 +117,13 @@ exports['test ISO week numbers'] = function(assert) {
 exports['test time ago function'] = function(assert) {
   var date = new Date();
   assert.equal(date.ago().join('#'), '0 seconds');
+  // assert.equal(date.ago(['seconds']).join('#'), '0 seconds');
 
   date.setUTCSeconds(date.getUTCSeconds() - 164);
   assert.equal(date.ago().join('#'), '2 minutes#44 seconds');
   assert.equal(date.ago(['seconds']).join('#'), '2 minutes');
   assert.equal(date.ago(['minutes']).join('#'), '164 seconds');
+  assert.equal(date.ago(['seconds', 'minutes']).join('#'), '0 hours');
 
   date.setUTCHours(date.getUTCHours() - 1);
   assert.equal(date.ago().join('#'), '1 hour#2 minutes#44 seconds');
@@ -129,7 +131,7 @@ exports['test time ago function'] = function(assert) {
   assert.equal(date.ago(['minutes']).join('#'), '1 hour#164 seconds');
   assert.equal(date.ago(['hours']).join('#'), '62 minutes#44 seconds');
   assert.equal(date.ago(['hours', 'minutes']).join('#'), '3764 seconds');
-  assert.equal(date.ago(['hours', 'minutes', 'seconds']).join('#'), '');
+  assert.equal(date.ago(['hours', 'minutes', 'seconds']).join('#'), '0 days');
 
   date.setUTCMonth(date.getUTCMonth() - 2);
   assert.equal(date.ago().join('#'), '2 months#1 hour#2 minutes#44 seconds');

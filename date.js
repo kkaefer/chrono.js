@@ -189,45 +189,51 @@ Date.prototype.ago = function(omit) {
   omit = omit || [];
   var now = new Date();
 
-  if (now.getTime() <= this.getTime()) {
-    return [ exports.timeInterval.seconds(0) ];
-  }
-  
-  var result = [];
-  
-  if (omit.indexOf('years') < 0) {
-    var years = now.getUTCFullYear() - this.getUTCFullYear();
-    if (years > 0) {
-      result.push(exports.timeInterval.years(years));
-      now.setUTCFullYear(this.getUTCFullYear());
-    }
-  }
+  if (now.getTime() > this.getTime()) {
+    var result = [];
 
-  if (omit.indexOf('months') < 0) {
-    var nowMonth = now.getUTCMonth(), thisMonth = this.getUTCMonth();
-    if (nowMonth < thisMonth) nowMonth += 12;
-    var months = nowMonth - thisMonth;
-    months += (now.getUTCFullYear() - this.getUTCFullYear()) * 12;
-    if (now.getDate() < this.getDate()) months--;
-    if (months > 0) {
-      result.push(exports.timeInterval.months(months));
-      now.setUTCMonth(this.getUTCMonth());
-      now.setUTCFullYear(this.getUTCFullYear());
+    if (omit.indexOf('years') < 0) {
+      var years = now.getUTCFullYear() - this.getUTCFullYear();
+      if (years > 0) {
+        result.push(exports.timeInterval.years(years));
+        now.setUTCFullYear(this.getUTCFullYear());
+      }
     }
+
+    if (omit.indexOf('months') < 0) {
+      var nowMonth = now.getUTCMonth(), thisMonth = this.getUTCMonth();
+      if (nowMonth < thisMonth) nowMonth += 12;
+      var months = nowMonth - thisMonth;
+      months += (now.getUTCFullYear() - this.getUTCFullYear()) * 12;
+      if (now.getDate() < this.getDate()) months--;
+      if (months > 0) {
+        result.push(exports.timeInterval.months(months));
+        now.setUTCMonth(this.getUTCMonth());
+        now.setUTCFullYear(this.getUTCFullYear());
+      }
+    }
+
+    var seconds = Math.floor((now.getTime() - this.getTime()) / 1000);
+    [ ['weeks', 604800], ['days', 86400], ['hours', 3600], ['minutes', 60], ['seconds', 1] ].forEach(function(e) {
+      if (omit.indexOf(e[0]) < 0) {
+        var interval = Math.floor(seconds / e[1]);
+        seconds -= interval * e[1];
+        if (interval) {
+          result.push(exports.timeInterval[e[0]](interval));
+        }
+      } 
+    });
+    
+    if (result.length) return result;
   }
   
-  var seconds = Math.floor((now.getTime() - this.getTime()) / 1000);
-  [ ['weeks', 604800], ['days', 86400], ['hours', 3600], ['minutes', 60], ['seconds', 1] ].forEach(function(e) {
-    if (omit.indexOf(e[0]) < 0) {
-      var interval = Math.floor(seconds / e[1]);
-      seconds -= interval * e[1];
-      if (interval) {
-        result.push(exports.timeInterval[e[0]](interval));
-      }
-    } 
-  });
+  // No time snippet has been generated so far.
+  var order = ['seconds', 'minutes', 'hours', 'days', 'weeks', 'months', 'years'];
+  for (var i = 0; i < order.length; i++) {
+    if (omit.indexOf(order[i]) < 0) return [ exports.timeInterval[order[i]](0) ];
+  }
   
-  return result;
+  return [];
 };
 
 
