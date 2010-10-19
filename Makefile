@@ -4,4 +4,4 @@ test-cov:
 	@expresso -I lib --coverage
 
 
-.PHONY: test
+.PHONY: test test-cov
