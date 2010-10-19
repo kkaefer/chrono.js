@@ -44,6 +44,13 @@ exports['test english ordinals'] = function(assert) {
   assert.equal(new Date('May 21 2010 00:00:00 GMT+0000').format('jS', 0), '21st');
 };
 
+exports['test missing timezone parameter'] = function(assert) {
+  var date = new Date();
+  assert.equal(parseInt(date.format('G'), 10), date.getHours());
+  assert.equal(parseInt(date.format('i'), 10), date.getMinutes());
+  assert.equal(parseInt(date.format('j'), 10), date.getDate());
+};
+
 exports['test timezone tokens'] = function(assert) {
   var d = new Date('Jul 18 2010 12:00:00 GMT+0000');
 
@@ -117,7 +124,7 @@ exports['test ISO week numbers'] = function(assert) {
 exports['test time ago function'] = function(assert) {
   var date = new Date();
   assert.equal(date.ago().join('#'), '0 seconds');
-  // assert.equal(date.ago(['seconds']).join('#'), '0 seconds');
+  assert.equal(date.ago(['seconds']).join('#'), '0 minutes');
 
   date.setUTCSeconds(date.getUTCSeconds() - 164);
   assert.equal(date.ago().join('#'), '2 minutes#44 seconds');
@@ -141,4 +148,7 @@ exports['test time ago function'] = function(assert) {
   assert.equal(date.ago().join('#'), '3 years#2 months#1 hour#2 minutes#44 seconds');
   assert.equal(date.ago(['years']).join('#'), '38 months#1 hour#2 minutes#44 seconds');
   assert.equal(date.ago(['years', 'months']).join('#'), '165 weeks#2 days#1 hour#2 minutes#44 seconds');
+  
+  // When we exclude all granularities, return an empty array.
+  assert.length(date.ago(['seconds', 'minutes', 'hours', 'days', 'weeks', 'months', 'years']), 0);
 };
