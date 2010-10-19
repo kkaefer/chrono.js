@@ -148,7 +148,17 @@ exports['test time ago function'] = function(assert) {
   assert.equal(date.ago().join('#'), '3 years#2 months#1 hour#2 minutes#44 seconds');
   assert.equal(date.ago(['years']).join('#'), '38 months#1 hour#2 minutes#44 seconds');
   assert.equal(date.ago(['years', 'months']).join('#'), '165 weeks#2 days#1 hour#2 minutes#44 seconds');
-  
+
   // When we exclude all granularities, return an empty array.
   assert.length(date.ago(['seconds', 'minutes', 'hours', 'days', 'weeks', 'months', 'years']), 0);
+};
+
+exports['test time ago for obscure dates'] = function(assert) {
+  var date = new Date();
+  date.setUTCMonth(date.getUTCMonth() - 5);
+  date.setUTCDate(date.getUTCDate() + 1);
+  assert.equal(date.ago().join('#'), '4 months#4 weeks#1 day');
+
+  date.setUTCFullYear(date.getUTCFullYear() + 1);
+  assert.equal(date.ago(['seconds', 'minutes', 'hours']).join('#'), '0 days');
 };
