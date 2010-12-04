@@ -1,6 +1,7 @@
-require('date');
+var assert = require('assert');
+require('lib');
 
-exports['test general formatting'] = function(assert) {
+exports['test general formatting'] = function() {
   var d = new Date('Apr 02 2010 08:47:07.049 GMT+0000');
 
   assert.equal(d.format('y-m-d H:i:s', 0), '10-04-02 08:47:07');
@@ -13,7 +14,7 @@ exports['test general formatting'] = function(assert) {
   assert.equal(d.format('c r U', 0), '2010-04-02T08:47:07+00:00 Fri, 02 Apr 10 08:47:07 +0000 1270198027');
 };
 
-exports['test padding'] = function(assert) {
+exports['test padding'] = function() {
   var d = new Date('Feb 04 2005 05:03:08 GMT+0000');
 
   // Test padding.
@@ -23,19 +24,19 @@ exports['test padding'] = function(assert) {
   assert.equal(d.format('j z n g G', 0), '4 34 2 5 5');
 };
 
-exports['test am/pm'] = function(assert) {
+exports['test am/pm'] = function() {
   assert.equal(new Date('May 15 2010 00:00:00 GMT+0000').format('a A g G h H', 0), 'am AM 12 0 12 00');
   assert.equal(new Date('May 15 2010 14:00:00 GMT+0000').format('a A g G h H', 0), 'pm PM 2 14 02 14');
 };
 
-exports['test leap years'] = function(assert) {
+exports['test leap years'] = function() {
   assert.equal(new Date('Feb 01 1900 00:00:00 GMT+0000').format('L t', 0), '0 28');
   assert.equal(new Date('Feb 01 1904 00:00:00 GMT+0000').format('L t', 0), '1 29');
   assert.equal(new Date('Feb 01 2000 00:00:00 GMT+0000').format('L t', 0), '1 29');
   assert.equal(new Date('Feb 01 2001 00:00:00 GMT+0000').format('L t', 0), '0 28');
 };
 
-exports['test english ordinals'] = function(assert) {
+exports['test english ordinals'] = function() {
   assert.equal(new Date('May 1 2010 00:00:00 GMT+0000').format('jS', 0), '1st');
   assert.equal(new Date('May 2 2010 00:00:00 GMT+0000').format('jS', 0), '2nd');
   assert.equal(new Date('May 3 2010 00:00:00 GMT+0000').format('jS', 0), '3rd');
@@ -44,14 +45,14 @@ exports['test english ordinals'] = function(assert) {
   assert.equal(new Date('May 21 2010 00:00:00 GMT+0000').format('jS', 0), '21st');
 };
 
-exports['test missing timezone parameter'] = function(assert) {
+exports['test missing timezone parameter'] = function() {
   var date = new Date();
   assert.equal(parseInt(date.format('G'), 10), date.getHours());
   assert.equal(parseInt(date.format('i'), 10), date.getMinutes());
   assert.equal(parseInt(date.format('j'), 10), date.getDate());
 };
 
-exports['test timezone tokens'] = function(assert) {
+exports['test timezone tokens'] = function() {
   var d = new Date('Jul 18 2010 12:00:00 GMT+0000');
 
   assert.equal(d.format('Y-m-d H:i:s O P Z', 285), '2010-07-18 07:15:00 -0445 -04:45 -17100');
@@ -74,7 +75,7 @@ exports['test timezone tokens'] = function(assert) {
   assert.equal(d.format('Y-m-d H:i:s O P Z', 'NPT'), '2010-07-18 17:45:00 +0545 +05:45 20700');
 };
 
-exports['test timezones across day boundaries'] = function(assert) {
+exports['test timezones across day boundaries'] = function() {
   var d = new Date('Jan 1 2010 00:00:00 GMT+0000');
 
   assert.equal(d.format('Y-m-d H:i:s O T', '+1200'), '2010-01-01 12:00:00 +1200 FJT');
@@ -92,7 +93,7 @@ exports['test timezones across day boundaries'] = function(assert) {
   assert.equal(d.format('Y-m-d H:i:s O T', 'CEST'), '2010-01-01 02:00:00 +0200 CEST');
 };
 
-exports['test ISO week numbers'] = function(assert) {
+exports['test ISO week numbers'] = function() {
   assert.equal(new Date('Jan 01 2005 12:00:00 GMT+0000').format('o-\\WW-N', 0), '2004-W53-6');
   assert.equal(new Date('Jan 02 2005 12:00:00 GMT+0000').format('o-\\WW-N', 0), '2004-W53-7');
   assert.equal(new Date('Dec 31 2005 12:00:00 GMT+0000').format('o-\\WW-N', 0), '2005-W52-6');
@@ -121,7 +122,7 @@ exports['test ISO week numbers'] = function(assert) {
   assert.equal(new Date('Jan 05 2010 12:00:00 GMT+0000').format('o-\\WW-N', 0), '2010-W01-2');
 };
 
-exports['test time ago function'] = function(assert) {
+exports['test time ago function'] = function() {
   var date = new Date();
   assert.equal(date.ago().join('#'), '0 seconds');
   assert.equal(date.ago(['seconds']).join('#'), '0 minutes');
@@ -153,7 +154,7 @@ exports['test time ago function'] = function(assert) {
   assert.length(date.ago(['seconds', 'minutes', 'hours', 'days', 'weeks', 'months', 'years']), 0);
 };
 
-exports['test time ago for obscure dates'] = function(assert) {
+exports['test time ago for obscure dates'] = function() {
   var date = new Date();
   date.setUTCMonth(date.getUTCMonth() - 5);
   date.setUTCDate(date.getUTCDate() + 1);

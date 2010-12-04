@@ -1,1 +1,1 @@
-require('./lib/date')
+module.exports = require('./lib');
