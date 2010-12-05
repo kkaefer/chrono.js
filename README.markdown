@@ -4,6 +4,13 @@ Contributions are welcome!
 
 Tests can be run with `make test` after installing [Expresso](http://github.com/visionmedia/expresso). `make test-cov` reports test coverage.
 
+## Clone
+
+### lib.**clone(object)**
+
+Returns an exact clone of the object passed. They resulting object will be exactly the same, with all object properties reacting the same way (e.g. enumerable properties), except that they are not identical. It performs a deep clone and is also able to clone circular structures.
+
+
 ## Date
 
 ### Date.prototype.**format(format, [timezone])**
