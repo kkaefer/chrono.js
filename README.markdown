@@ -1,17 +1,4 @@
-This project aims to become a repository for commonly used application-level functionality that is not provided by Node.js or JavaScript itself. Where possible and sensible, **libjs** extends built-in object's prototypes.
-
-Contributions are welcome!
-
-Tests can be run with `make test` after installing [Expresso](http://github.com/visionmedia/expresso). `make test-cov` reports test coverage.
-
-## Clone
-
-### lib.**clone(object)**
-
-Returns an exact clone of the object passed. They resulting object will be exactly the same, with all object properties reacting the same way (e.g. enumerable properties), except that they are not identical. It performs a deep clone and is also able to clone circular structures.
-
-
-## Date
+# chrono.js
 
 ### Date.prototype.**format(format, [timezone])**
 
@@ -22,13 +9,6 @@ The optional `timezone` parameter specifies the time zone to be used. The values
 The function returns a string with the tokens replaced with the Date object's information.
 
 Example: `new Date().format('d.m.Y H:i:s', 'CET');` returns `19.10.2010 15:48:20` (in CET, without regard to DST).
-
-### Date.prototype.**ago([omit])**
-
-Returns an array of time snippets indicating how long the Date object's date lies in the past. The optional parameter can be an array with strings indicating which snippets to omit, e.g. with `['years']`, no information about years are returned; instead, it is folded down to the next available granularity (e.g. months).
-
-Example: `new Date('Apr 02 2010 08:47:07').ago()` returns `['6 months', '2 weeks', '3 days', '8 hours', '21 minutes', '28 seconds']`. You can limit granularity by calling `.slice(0, 2)` on the result.
-
 
 ### Date.prototype.**isLeapYear()**
 
@@ -62,3 +42,7 @@ Returns the time zone acronym of the Date object's timezone.
 
 Sets the Date object's timezone. Numbers are interpreted as deviation in minutes from UTC, with positive values west of UTC and negative values east thereof (this is JavaScript's way of specifying time zone offset and is the exact opposite of how timezone offsets normally work). Alternatively, you can specify a offset in RFC2822 notation, for example `'+0200'` for UTC + 2 hours. Common time zone shortcuts like `'PST'` also work.
 
+
+# TESTS
+
+Tests can be run with `make test` after installing [Expresso](http://github.com/visionmedia/expresso). `make test-cov` reports test coverage.

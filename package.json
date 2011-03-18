@@ -1,13 +1,14 @@
-{ "name" : "lib"
-, "author" : "Konstantin Käfer"
-, "description" : "Library of commonly used functionality for Node.js"
-, "version" : "0.0.1"
-, "repository" :
-  { "type" : "git"
-  , "url" : "https://kkaefer@github.com/kkaefer/lib.js.git"
-  }
-, "bugs" :
-  { "web" : "http://github.com/kkaefer/lib.js/issues"
-  }
-, "main" : "./lib"
+{
+    "name": "chrono",
+    "author": "Konstantin Käfer",
+    "description": "Format dates in JavaScript",
+    "version": "1.0.0",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/kkaefer/chrono.js.git"
+    },
+    "bugs": {
+        "web": "https://github.com/kkaefer/chrono.js/issues"
+    },
+    "main": "./lib"
 }

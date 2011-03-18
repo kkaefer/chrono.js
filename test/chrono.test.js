@@ -1,5 +1,5 @@
 var assert = require('assert');
-require('lib');
+require('chrono');
 
 exports['test general formatting'] = function() {
   var d = new Date('Apr 02 2010 08:47:07.049 GMT+0000');
@@ -120,46 +120,4 @@ exports['test ISO week numbers'] = function() {
   assert.equal(new Date('Jan 03 2010 12:00:00 GMT+0000').format('o-\\WW-N', 0), '2009-W53-7');
   assert.equal(new Date('Jan 04 2010 12:00:00 GMT+0000').format('o-\\WW-N', 0), '2010-W01-1');
   assert.equal(new Date('Jan 05 2010 12:00:00 GMT+0000').format('o-\\WW-N', 0), '2010-W01-2');
-};
-
-exports['test time ago function'] = function() {
-  var date = new Date();
-  assert.equal(date.ago().join('#'), '0 seconds');
-  assert.equal(date.ago(['seconds']).join('#'), '0 minutes');
-
-  date.setUTCSeconds(date.getUTCSeconds() - 164);
-  assert.equal(date.ago().join('#'), '2 minutes#44 seconds');
-  assert.equal(date.ago(['seconds']).join('#'), '2 minutes');
-  assert.equal(date.ago(['minutes']).join('#'), '164 seconds');
-  assert.equal(date.ago(['seconds', 'minutes']).join('#'), '0 hours');
-
-  date.setUTCHours(date.getUTCHours() - 1);
-  assert.equal(date.ago().join('#'), '1 hour#2 minutes#44 seconds');
-  assert.equal(date.ago(['seconds']).join('#'), '1 hour#2 minutes');
-  assert.equal(date.ago(['minutes']).join('#'), '1 hour#164 seconds');
-  assert.equal(date.ago(['hours']).join('#'), '62 minutes#44 seconds');
-  assert.equal(date.ago(['hours', 'minutes']).join('#'), '3764 seconds');
-  assert.equal(date.ago(['hours', 'minutes', 'seconds']).join('#'), '0 days');
-
-  date.setUTCMonth(date.getUTCMonth() - 2);
-  assert.equal(date.ago().join('#'), '2 months#1 hour#2 minutes#44 seconds');
-  assert.equal(date.ago(['months']).join('#'), '8 weeks#5 days#1 hour#2 minutes#44 seconds');
-
-  date.setUTCFullYear(date.getUTCFullYear() - 3);
-  assert.equal(date.ago().join('#'), '3 years#2 months#1 hour#2 minutes#44 seconds');
-  assert.equal(date.ago(['years']).join('#'), '38 months#1 hour#2 minutes#44 seconds');
-  assert.equal(date.ago(['years', 'months']).join('#'), '165 weeks#2 days#1 hour#2 minutes#44 seconds');
-
-  // When we exclude all granularities, return an empty array.
-  assert.length(date.ago(['seconds', 'minutes', 'hours', 'days', 'weeks', 'months', 'years']), 0);
-};
-
-exports['test time ago for obscure dates'] = function() {
-  var date = new Date();
-  date.setUTCMonth(date.getUTCMonth() - 5);
-  date.setUTCDate(date.getUTCDate() + 1);
-  assert.equal(date.ago().join('#'), '4 months#4 weeks#1 day');
-
-  date.setUTCFullYear(date.getUTCFullYear() + 1);
-  assert.equal(date.ago(['seconds', 'minutes', 'hours']).join('#'), '0 days');
 };
