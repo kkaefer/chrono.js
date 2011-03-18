@@ -10,5 +10,5 @@
     "bugs": {
         "web": "https://github.com/kkaefer/chrono.js/issues"
     },
-    "main": "./lib"
+    "main": "index"
 }
