@@ -1,5 +1,5 @@
 var assert = require('assert');
-require('chrono');
+require('..');
 
 exports['test general formatting'] = function() {
   var d = new Date('Apr 02 2010 08:47:07.049 GMT+0000');
@@ -120,4 +120,17 @@ exports['test ISO week numbers'] = function() {
   assert.equal(new Date('Jan 03 2010 12:00:00 GMT+0000').format('o-\\WW-N', 0), '2009-W53-7');
   assert.equal(new Date('Jan 04 2010 12:00:00 GMT+0000').format('o-\\WW-N', 0), '2010-W01-1');
   assert.equal(new Date('Jan 05 2010 12:00:00 GMT+0000').format('o-\\WW-N', 0), '2010-W01-2');
+};
+
+exports['test time intervals'] = function() {
+    assert.eql(new Date('Dec 27 2009 11:34:20 UTC').interval(new Date('Dec 27 2010 12:18:23 UTC')),
+        ['1 year', '44 minutes', '3 seconds']);
+    assert.eql(new Date('Dec 31 2009 11:34:20 UTC').interval(new Date('Feb 10 2010 12:18:23 UTC')),
+        ['1 month', '1 week', '3 days', '44 minutes', '3 seconds']);
+    assert.eql(new Date('Dec 15 2010 11:34:20 UTC').interval(new Date('Nov 28 2010 12:18:23 UTC')),
+        ['2 weeks', '2 days', '23 hours', '15 minutes', '57 seconds']);
+    assert.eql(new Date('Feb 28 2004').interval(new Date('Feb 29 2004')), ['1 day']);
+    assert.eql(new Date('Feb 28 2004').interval(new Date('Mar 1 2004')), ['2 days']);
+    assert.eql(new Date('Feb 28 2004').interval(new Date('Feb 28 2005')), ['1 year']);
+    assert.eql(new Date('Feb 28 2004').interval(new Date('Mar 1 2005')), ['1 year', '1 day']);
 };
