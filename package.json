@@ -8,7 +8,7 @@
         "url": "git://github.com/kkaefer/chrono.js.git"
     },
     "bugs": {
-        "web": "https://github.com/kkaefer/chrono.js/issues"
+        "url": "https://github.com/kkaefer/chrono.js/issues"
     },
     "main": "index"
 }
