@@ -12,6 +12,9 @@ exports['test general formatting'] = function() {
   assert.equal(d.format('L o Y y O P T Z', 0), '0 2010 2010 10 +0000 +00:00 UTC 0');
   assert.equal(d.format('a A g G h H i s u', 0), 'am AM 8 8 08 08 47 07 049');
   assert.equal(d.format('c r U', 0), '2010-04-02T08:47:07+00:00 Fri, 02 Apr 10 08:47:07 +0000 1270198027');
+
+  assert.equal(d.format('c'), d.format('Y-m-d\\TH:i:sP'));
+  assert.equal(d.format('r'), d.format('D, d M y H:i:s O'));
 };
 
 exports['test padding'] = function() {
