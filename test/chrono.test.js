@@ -144,5 +144,9 @@ exports['test time intervals'] = function() {
     assert.eql(new Date('Feb 28 2004').interval(new Date('Feb 29 2004')), ['1 day']);
     assert.eql(new Date('Feb 28 2004').interval(new Date('Mar 1 2004')), ['2 days']);
     assert.eql(new Date('Feb 28 2004').interval(new Date('Feb 28 2005')), ['1 year']);
-    assert.eql(new Date('Feb 28 2004').interval(new Date('Mar 1 2005')), ['1 year', '1 day']);
+    assert.eql(new Date('Feb 28 2004').interval(new Date('Mar 2 2004')), ['3 days']);
+    assert.eql(new Date('Feb 28 2003').interval(new Date('Mar 1 2005')), ['2 years', '1 day']);
+    assert.eql(new Date('Feb 28 2004').interval(new Date('Mar 1 2005')), ['1 year', '2 days']);
+    assert.eql(new Date('Feb 29 2004').interval(new Date('Mar 1 2005')), ['1 year', '1 day']);
+    assert.eql(new Date('Feb 28 2003').interval(new Date('Mar 1 2004')), ['1 year', '1 day']);
 };
