@@ -39,6 +39,15 @@ exports['test leap years'] = function() {
   assert.equal(new Date('Feb 01 2001 00:00:00 GMT+0000').format('L t', 0), '0 28');
 };
 
+exports['test getUTCDaysOfMonth'] = function() {
+  assert.equal(new Date('Jan 30 2012 00:00:00 GMT+0000').getUTCDaysOfMonth(), 31);
+  assert.equal(new Date('Jan 30 2012').getUTCDaysOfMonth(), 31);
+  assert.equal(new Date('Feb 02 2012 00:00:00 GMT+0000').getUTCDaysOfMonth(), 29);
+  assert.equal(new Date('Feb 02 2012').getUTCDaysOfMonth(), 29);
+  assert.deepEqual(new Date('Jan 30 2012 00:00:00 GMT+0000').interval(new Date('Feb 6, 2012 00:00:00 GMT+0000')), ['1 week']);
+  assert.deepEqual(new Date('Jan 30 2012').interval(new Date('Feb 6, 2012')), ['1 week']);
+};
+
 exports['test english ordinals'] = function() {
   assert.equal(new Date('May 1 2010 00:00:00 GMT+0000').format('jS', 0), '1st');
   assert.equal(new Date('May 2 2010 00:00:00 GMT+0000').format('jS', 0), '2nd');
