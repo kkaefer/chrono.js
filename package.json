@@ -2,7 +2,7 @@
     "name": "chrono",
     "author": "Konstantin Käfer",
     "description": "Format dates in JavaScript",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "repository": {
         "type": "git",
         "url": "git://github.com/kkaefer/chrono.js.git"
