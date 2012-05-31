@@ -150,3 +150,9 @@ exports['test time intervals'] = function() {
     assert.eql(new Date('Feb 29 2004').interval(new Date('Mar 1 2005')), ['1 year', '1 day']);
     assert.eql(new Date('Feb 28 2003').interval(new Date('Mar 1 2004')), ['1 year', '1 day']);
 };
+
+exports['test time zone identifiers'] = function() {
+  var d = new Date('May 31 2012 12:34:56 GMT+0200');
+  assert.equal(d.format('Y-m-d H:i:s O T', 'CEST'), '2012-05-31 12:34:56 +0200 CEST');
+  assert.equal(d.format('Y-m-d H:i:s O T', 'NZST'), '2012-05-31 22:34:56 +1200 NZST');
+};
