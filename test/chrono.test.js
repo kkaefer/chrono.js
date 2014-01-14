@@ -135,20 +135,20 @@ exports['test ISO week numbers'] = function() {
 };
 
 exports['test time intervals'] = function() {
-    assert.eql(new Date('Dec 27 2009 11:34:20 UTC').interval(new Date('Dec 27 2010 12:18:23 UTC')),
+    assert.deepEqual(new Date('Dec 27 2009 11:34:20 UTC').interval(new Date('Dec 27 2010 12:18:23 UTC')),
         ['1 year', '44 minutes', '3 seconds']);
-    assert.eql(new Date('Dec 31 2009 11:34:20 UTC').interval(new Date('Feb 10 2010 12:18:23 UTC')),
+    assert.deepEqual(new Date('Dec 31 2009 11:34:20 UTC').interval(new Date('Feb 10 2010 12:18:23 UTC')),
         ['1 month', '1 week', '3 days', '44 minutes', '3 seconds']);
-    assert.eql(new Date('Dec 15 2010 11:34:20 UTC').interval(new Date('Nov 28 2010 12:18:23 UTC')),
+    assert.deepEqual(new Date('Dec 15 2010 11:34:20 UTC').interval(new Date('Nov 28 2010 12:18:23 UTC')),
         ['2 weeks', '2 days', '23 hours', '15 minutes', '57 seconds']);
-    assert.eql(new Date('Feb 28 2004').interval(new Date('Feb 29 2004')), ['1 day']);
-    assert.eql(new Date('Feb 28 2004').interval(new Date('Mar 1 2004')), ['2 days']);
-    assert.eql(new Date('Feb 28 2004').interval(new Date('Feb 28 2005')), ['1 year']);
-    assert.eql(new Date('Feb 28 2004').interval(new Date('Mar 2 2004')), ['3 days']);
-    assert.eql(new Date('Feb 28 2003').interval(new Date('Mar 1 2005')), ['2 years', '1 day']);
-    assert.eql(new Date('Feb 28 2004').interval(new Date('Mar 1 2005')), ['1 year', '2 days']);
-    assert.eql(new Date('Feb 29 2004').interval(new Date('Mar 1 2005')), ['1 year', '1 day']);
-    assert.eql(new Date('Feb 28 2003').interval(new Date('Mar 1 2004')), ['1 year', '1 day']);
+    assert.deepEqual(new Date('Feb 28 2004').interval(new Date('Feb 29 2004')), ['1 day']);
+    assert.deepEqual(new Date('Feb 28 2004').interval(new Date('Mar 1 2004')), ['2 days']);
+    assert.deepEqual(new Date('Feb 28 2004').interval(new Date('Feb 28 2005')), ['1 year']);
+    assert.deepEqual(new Date('Feb 28 2004').interval(new Date('Mar 2 2004')), ['3 days']);
+    assert.deepEqual(new Date('Feb 28 2003').interval(new Date('Mar 1 2005')), ['2 years', '1 day']);
+    assert.deepEqual(new Date('Feb 28 2004').interval(new Date('Mar 1 2005')), ['1 year', '2 days']);
+    assert.deepEqual(new Date('Feb 29 2004').interval(new Date('Mar 1 2005')), ['1 year', '1 day']);
+    assert.deepEqual(new Date('Feb 28 2003').interval(new Date('Mar 1 2004')), ['1 year', '1 day']);
 };
 
 exports['test time zone identifiers'] = function() {
