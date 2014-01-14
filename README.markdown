@@ -1,4 +1,4 @@
-# chrono.js
+# chrono.js [![Build Status](https://travis-ci.org/kkaefer/chrono.js.png)](https://travis-ci.org/kkaefer/chrono.js)
 
 ### Date.prototype.**format(format, [timezone])**
 
