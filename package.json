@@ -2,13 +2,19 @@
     "name": "chrono",
     "author": "Konstantin Käfer",
     "description": "Format dates in JavaScript",
-    "version": "1.0.4",
+    "version": "1.0.5",
+    "devDependencies": {
+        "mocha": "~1.14"
+    },
     "repository": {
         "type": "git",
         "url": "git://github.com/kkaefer/chrono.js.git"
     },
     "bugs": {
         "url": "https://github.com/kkaefer/chrono.js/issues"
+    },
+    "scripts": {
+        "test": "mocha -R spec -u exports"
     },
     "main": "index"
 }
